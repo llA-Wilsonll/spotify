@@ -12,6 +12,10 @@ import pandas as pd  # DataFrame, concat, crosstab
 # Instructions on how to obtain Auth Token can be found in docs directory
 access_token = AccessToken.TOKEN
 
+""" 
+Downloading the Top songs from The Beatles 
+"""
+
 # You can search for Artist IDs using:
 # https://developer.spotify.com/console/get-search-item/?q=AC%2FDC&type=artist&market=&limit=&offset=
 # Artist ID for The Beatles
@@ -66,4 +70,34 @@ tracks_df.columns = ['country', 'number'] + keys
 
 # Inspecting to see if country data sets are actually different
 cross_tab = pd.crosstab(tracks_df.name, tracks_df.number).apply(lambda r: r / r.sum(), axis=1)
-print(cross_tab)
+
+
+""" 
+Grab playlist of The Beatles songs 
+"""
+
+# Playlist id for "Beatles Greatest Hits"
+playlist_id = "1FbXE0DKfcNlIRexSEHcs8"
+
+# URL Endpoint
+url = "https://api.spotify.com/v1/playlists/" + playlist_id + "/tracks"
+
+# Specifying the fields to return
+parameters = {'fields': 'items(track(id, name, duration_ms, popularity))'}
+
+# Headers for URL Endpoint
+headers = {'Accept': 'application/json',
+           'Content-Type': 'application/json',
+           'Authorization': 'Bearer {0}'.format(access_token)}
+
+# Get the songs from the playlist
+response = requests.get(url, params=parameters, headers=headers)
+
+data = response.json()
+
+for i in range(len(data['items'])):
+    data['items'][i] = data['items'][i]['track']
+
+playlist_tracks_df = pd.DataFrame(data['items'])
+print(playlist_tracks_df)
+print(playlist_tracks_df.columns)
