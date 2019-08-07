@@ -23,10 +23,14 @@ e.g the URL was `https://localhost:8888/callback/?code=AQAG6uFr2Mka4...`
 		
 
 7. Run the following in the command line  
-`curl -H "Authorization: Basic NjdlNTU4MTU4NWVjNDM3ZDhjNDVlMDkyYTU0YTQzOWU6NWU1M2RhMmU5MmNhNDgwYmE2M2I4M2Q4ZjY4OGExZTM=" -d grant_type=authorization_code -d code=AQAG6uFr2Mka4IQtFgtUDgKp5EOClsGd9kieHbjSRPiM95AMqten7oWApO5u6r8ubOjy-c5u77HUZ7uOFCtm-vzahv5xCuXdZjpVbzUn66Iloni8pRPmDQ7pkbZ6l3WvDH4AxQCOby3emhapD-xN-XYW1FpdKU6hl6eWDx5INCIdFLZ0VVtT0mlZERtiqmdLpoT2wifPQTs -d redirect_uri=https%3A%2F%2Flocalhost%3A8888%2Fcallback%2F https://accounts.spotify.com/api/token`  
+`curl -H "Authorization: Basic <client_id:client_secret encoded in base 64>" -d grant_type=authorization_code -d code=AQAG6uFr2Mka4IQtFgtUDgKp5EOClsGd9kieHbjSRPiM95AMqten7oWApO5u6r8ubOjy-c5u77HUZ7uOFCtm-vzahv5xCuXdZjpVbzUn66Iloni8pRPmDQ7pkbZ6l3WvDH4AxQCOby3emhapD-xN-XYW1FpdKU6hl6eWDx5INCIdFLZ0VVtT0mlZERtiqmdLpoT2wifPQTs -d redirect_uri=https%3A%2F%2Flocalhost%3A8888%2Fcallback%2F https://accounts.spotify.com/api/token`  
 Notes:  
 i. The code after Basic is the **client_id:client_secret encoded in base 64**  
 ii. The code after code= is the authorization code generated in the above steps  
 iii. The redirect_uri is encoded again as before
 
-8. Copy your Auth Token (access_token)
+8. Copy your Auth Token (access_token) and save the refresh_token.
+
+## Refresh Auth Token
+Take the refresh_token from step 8 above and run it in the following code:
+`curl -H "Authorization: Basic <client_id:client_secret encoded in base 64>" -d grant_type=refresh_token -d refresh_token=<refresh_token> https://accounts.spotify.com/api/token`
