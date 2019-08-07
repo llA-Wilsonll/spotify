@@ -101,3 +101,39 @@ for i in range(len(data['items'])):
 playlist_tracks_df = pd.DataFrame(data['items'])
 print(playlist_tracks_df)
 print(playlist_tracks_df.columns)
+
+"""
+Getting Audio Features from the tracks in the playlist
+"""
+
+track_features_dict = {}
+
+for track_id in playlist_tracks_df["id"]:
+
+    # URL Endpoint
+    url = "https://api.spotify.com/v1/audio-features/" + track_id
+
+    # Headers for URL Endpoint
+    headers = {'Accept': 'application/json',
+               'Content-Type': 'application/json',
+               'Authorization': 'Bearer {0}'.format(access_token)}
+
+    # Get the songs from the playlist
+    response = requests.get(url, headers=headers)
+
+    data = response.json()
+
+    # Storing response (form of simple dictionary) in the track_features_dict with key=track_id
+    track_features_dict[track_id] = data
+
+# Creating a pandas dataframe from the dictionary of dictionaries
+track_features_df = pd.DataFrame.transpose(pd.DataFrame(track_features_dict))
+
+# Resetting the index so the id becomes a column
+track_features_df.reset_index(inplace=True)
+
+# Renaming the index column back to id
+track_features_df = track_features_df.rename(columns = {'index':'id'})
+
+print(track_features_df)
+print(track_features_df.columns)
