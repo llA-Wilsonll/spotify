@@ -25,7 +25,7 @@ artist_id = "3WrFJ7ztbogyGnTHbHJFl2"
 url = "https://api.spotify.com/v1/artists/" + artist_id + "/top-tracks"
 
 # Specfiying the countries we want the top songs of
-countries = ["AU", "US", "GB", "CN", "JP", "BR", "DE", "ZA", "SE", "SG"]
+countries = ["AU", "US", "GB", "JP", "BR", "DE", "ZA", "SE", "SG"]
 
 # Initialising a dictionary to store track data for each country
 top_tracks_dict = {}
