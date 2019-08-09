@@ -30,7 +30,7 @@ countries = ["AU", "US", "GB", "CN", "JP", "BR", "DE", "ZA", "SE", "SG"]
 # Initialising a dictionary to store track data for each country
 top_tracks_dict = {}
 
-keys = ['name', 'duration_ms', 'popularity']  # List of keys we want from the api response
+keys = ['id', 'name', 'duration_ms', 'popularity']  # List of keys we want from the api response
 
 
 # Function to extract subset of key-value pairs from a dict
