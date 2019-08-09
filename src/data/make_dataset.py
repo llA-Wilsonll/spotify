@@ -28,7 +28,7 @@ url = "https://api.spotify.com/v1/artists/" + artist_id + "/top-tracks"
 countries = ["AU", "US", "GB", "CN", "JP", "BR", "DE", "ZA", "SE", "SG"]
 
 # Initialising a dictionary to store track data for each country
-tracks_dict = {}
+top_tracks_dict = {}
 
 keys = ['name', 'duration_ms', 'popularity']  # List of keys we want from the api response
 
@@ -54,22 +54,22 @@ for country in countries:
     # print('STATUS CODE: ' + str(response.status_code))
 
     data = response.json()
-    tracks_dict[country] = data["tracks"]
+    top_tracks_dict[country] = data["tracks"]
 
     # Taking a subset of the keys
-    for i in range(len(tracks_dict[country])):
-        tracks_dict[country][i] = extract(keys, tracks_dict[country][i])
+    for i in range(len(top_tracks_dict[country])):
+        top_tracks_dict[country][i] = extract(keys, top_tracks_dict[country][i])
 
-    # Changing from list to DataFrame
-    tracks_dict[country] = pd.DataFrame(tracks_dict[country])
+    # Changing values from list to DataFrame
+    top_tracks_dict[country] = pd.DataFrame(top_tracks_dict[country])
 
 # Concatenating dict of country DataFrames into one DataFrame
-tracks_df = pd.concat(tracks_dict, sort=False)
-tracks_df.reset_index(inplace=True)
-tracks_df.columns = ['country', 'number'] + keys
+top_tracks_df = pd.concat(top_tracks_dict, sort=False)
+top_tracks_df.reset_index(inplace=True)
+top_tracks_df.columns = ['country', 'number'] + keys
 
 # Inspecting to see if country data sets are actually different
-cross_tab = pd.crosstab(tracks_df.name, tracks_df.number).apply(lambda r: r / r.sum(), axis=1)
+cross_tab = pd.crosstab(top_tracks_df.name, top_tracks_df.number).apply(lambda r: r / r.sum(), axis=1)
 
 
 """ 
@@ -137,3 +137,18 @@ track_features_df = track_features_df.rename(columns = {'index':'id'})
 
 print(track_features_df)
 print(track_features_df.columns)
+
+
+"""
+Pickle the Pandas DataFrames we want to save
+    - Saving to the /data/raw subdirectory
+"""
+
+# Top tracks
+top_tracks_df.to_pickle("../../data/raw/top_tracks.pkl")
+
+# Tracks from the playlist
+playlist_tracks_df.to_pickle("../../data/raw/playlist_tracks.pkl")
+
+# Track Features
+track_features_df.to_pickle("../../data/raw/track_features.pkl")
