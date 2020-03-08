@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import scipy.cluster.hierarchy as shc
-#from sklearn.cluster import MeanShift
+# from sklearn.cluster import MeanShift
 from sklearn.cluster import KMeans, SpectralClustering
 from sklearn.preprocessing import normalize
 
@@ -23,7 +23,7 @@ pd.set_option('display.width', 1000)
 Prepare data set for modelling
 """
 # Track Features
-track_features_df = pd.read_pickle("../../data/processed/track_features_processed.pkl")
+track_features_df = pd.read_pickle("./data/processed/track_features_processed.pkl")
 print(track_features_df.columns)
 
 # Extracting the features we want to perform cluster analysis on
@@ -56,11 +56,17 @@ print(sc.labels_)
 
 
 """
-Joining cluster labels from KMeans and Spectral Analysis back onto base DataFrame
+Joining cluster labels from KMeans and Spectral Clustering back onto base DataFrame
 """
 track_features_df['cluster_kmeans'] = kmeans.labels_
-track_features_df['cluster_sc'] = sc.labels_
+track_features_df['cluster_sc'] = 1- sc.labels_
 print(track_features_df)
+
+# Converting columns to numeric before using describe
+track_features_df[['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness',
+                  'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms']] = \
+    track_features_df[['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness',
+                       'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms']].apply(pd.to_numeric)
 
 print("Describing observations in '0' cluster (using Spectral Clustering)")
 print(track_features_df.loc[track_features_df['cluster_sc'] == 0, :].describe())
@@ -68,7 +74,15 @@ print("Describing observations in '1' cluster (using Spectral Clustering)")
 print(track_features_df.loc[track_features_df['cluster_sc'] == 1, :].describe())
 
 
+"""
+Finding which variables contributed most to cluster splits
+(maybe this is equivalent to finding which features vary most between clusters and least within the clusters)
+"""
 
+
+"""
+Cluster Analysis on only two variables (for visualisation purposes)
+"""
 
 
 """
