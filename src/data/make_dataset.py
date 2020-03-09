@@ -6,6 +6,8 @@ I want to analyse. More specifically:
 """
 
 import requests  # Used for API calls
+import sys
+sys.path.insert(1, './src/data')
 from spfy_token import AccessToken  # Module where I store my access token
 import pandas as pd  # DataFrame, concat, crosstab
 
