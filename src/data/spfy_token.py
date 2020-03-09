@@ -3,6 +3,5 @@ Location to store my spotify token details
 """
 
 class AccessToken:
-    TOKEN = "BQD__kRXEglUXAE2ZLbkWXiWNnSFrl44s4Z9EyWazzrPwdW9kC34EcbFNpRk8TY8LLPX3MWibBkBVsgc18PhjDYkuFe4MItn6WwT1B81hkNdFnkwQkpPiRWB_Mhd27KLyNL10gV-et1LAdomgkI"
-    REFRESH_TOKEN = "AQDb-ekzFSOoK3_3_iWd3FydtN35jmnk0K94WMejH47Sp5b2keoPlIVaXCKs-4cijq-Hanh-IAiQrteevfYjA9PCUoiaiQsti7_D2hCQtwd5yib1bxz3QwUiRZAdW0W4P4qdCQ"
-      
+    TOKEN = "BQBzrXJ-IMNsDQNN_zY8AM74TrwjTvEs_kBV47Uk1JpkQ3Qe4xpJPaLMFTFywQUcFjb39W70D-k3oqcSnfTo_000xN061b3_zGrG2Lw6msZMG7lFY4P_T33fVbA6SqcsozBDaiVOGbRdvN2L2YOXTstGQWg1UyVANw"
+    REFRESH_TOKEN = "AQAegllZBfktTWemV8tUiYXuEWpA_XTiYgtjcDXysZmx-pYbZpG_lmErHT2keBiiw0bKpTlpX5TE-vW9qNfUksEI1LnVGLXEynIbfsklR79HJxQeq2UufJvogKKqo0Sc9Ac"
